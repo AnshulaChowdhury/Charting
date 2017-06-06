@@ -1,72 +1,83 @@
-<!DOCTYPE html><html lang="en"><head>   <meta charset="utf-8" />   <title>SAMETRICA</title>      <!-- import plugin script -->   <script src='static/Chart.min.js'></script>   </head><body>
-<link rel="stylesheet" type="text/css" href="//fonts.googleapis.com/css?family=Lato" /><link rel='stylesheet' href='//fonts.googleapis.com/css?family=Lato' type='text/css' />
- <link href="http://getbootstrap.com/dist/css/bootstrap.min.css" rel="stylesheet">
-<h2 style="font-family: lato; text-align: center;">SAMETRICA Prototype II</h2>
-<h4 style="font-family: lato; text-align: left;">This is an attempt to apply natural language processing algorithms to data that SAMETRICA works with. The objective is to generate analysis and charts that help impact practitioners assess the quality of an impact report. Follow the prompts and get cracking...</h2>
- 
- <div class='wrapper'>
-    <form id='nameForm'>
-    <div class='form-uname'>
-        <label id='inputlabel' for='inputField'>Enter your qualitative text here:</label>
+<!DOCTYPE html>
+<html lang="en">
+<head>   
+  <meta charset="utf-8" />   
+  <title>SAMETRICA</title>      
+  <!-- import plugin script -->   
+  <script src='static/chart.min.js'></script>   
+</head>
+
+<body>
+    <link rel="stylesheet" type="text/css" href="//fonts.googleapis.com/css?family=Lato" /><link rel='stylesheet' href='//fonts.googleapis.com/css?family=Lato' type='text/css' />
+
+    <link href="http://getbootstrap.com/dist/css/bootstrap.min.css" rel="stylesheet">
+
+    <h2 style="font-family: lato; text-align: center;">SAMETRICA Prototype II</h2>
+    <h4 style="font-family: lato; text-align: left;">This is an attempt to apply natural language processing algorithms to data that SAMETRICA works with. The objective is to generate analysis and charts that help impact practitioners assess the quality of an impact report. Follow the prompts and get cracking...</h2>
+       
+       <div class='wrapper'>
+        <form id='nameForm'>
+            <div class='form-uname'>
+                <label id='inputlabel' for='inputField'>Enter your qualitative text here:</label>
+                <br>
+                <input id='nameField' type='text' maxlength='25000'  cols="100"
+                rows="10"
+                style="width:1000px; height:100px; font-family: lato"></input>
+                <br>
+                <br>
+                Select the chart you would like to produce:<br>
+                <input style="font-family: lato; text-align: left;" type="dropdown-content"></input>
+            </div>
+            <div class='form-sub'>
+                <br>
+                <button id='subButton' type='button'>Submit</button>
+
+
+            </div>
+        </form>
+
+
+        <div>
+            <p id='result'></p></div>
+        </div>
+
         <br>
-        <input id='nameField' type='text' maxlength='25000'  cols="100"
-  rows="10"
-  style="width:1000px; height:100px; font-family: lato"></input>
-  <br>
-  <br>
-    Select the chart you would like to produce:<br>
-  <input style="font-family: lato; text-align: left;" type="dropdown-content"></input>
-    </div>
-    <div class='form-sub'>
-    <br>
-        <button id='subButton' type='button'>Submit</button>
-
-
-    </div>
-</form>
-
-
-<div>
-    <p id='result'></p></div>
-</div>
-
-  <br>
-  <h2 style="font-family: lato; text-align: left;">Results</h2>
-<!-- bar chart canvas element --><canvas id="chart" width="600" height="400"></canvas>
-<script>
+        <h2 style="font-family: lato; text-align: left;">Results</h2>
+        <!-- bar chart canvas element --><canvas id="chart" width="600" height="400"></canvas>
+        <script>
    // bar chart data
    var barData = {
-   labels : [{% for item in labels %}
-                  "{{item}}",
-              {% endfor %}],
-   datasets : [
-      {
-            fillColor: "rgba(243,243,243,1)",
-            strokeColor: "rgba(0,159,218,1)",
-            pointColor: "rgba(151,187,205,1)",
-         data : [{% for item in values %}
-                      {{item}},
-                    {% endfor %}]
-      }
-      ]
-   }
- 
+     labels : [{% for item in labels %}
+     "{{item}}",
+     {% endfor %}],
+     datasets : [
+     {
+        fillColor: "rgba(243,243,243,1)",
+        strokeColor: "rgba(0,159,218,1)",
+        pointColor: "rgba(151,187,205,1)",
+        data : [{% for item in values %}
+        {{item}},
+        {% endfor %}]
+    }
+    ]
+}
+
    // get bar chart canvas
    var mychart = document.getElementById("chart").getContext("2d");
- 
+   
    steps = 10
    max = 10
    // draw bar chart
    new Chart(mychart).Bar(barData, {
-        scaleOverride: true,
-        scaleSteps: steps,
-        scaleStepWidth: Math.ceil(max / steps),
-        scaleStartValue: 0,
-        scaleShowVerticalLines: true,
-        scaleShowGridLines : true,
-        barShowStroke : true,
-        scaleShowLabels: true
-   });
+    scaleOverride: true,
+    scaleSteps: steps,
+    scaleStepWidth: Math.ceil(max / steps),
+    scaleStartValue: 0,
+    scaleShowVerticalLines: true,
+    scaleShowGridLines : true,
+    barShowStroke : true,
+    scaleShowLabels: true
+});
 
 </script>
 </body></html>
